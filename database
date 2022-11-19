@@ -1,0 +1,16 @@
+SELECT E.Firstname, E.LastName, T.Name, A.AddressText
+From Employees as E inner join Addresses as A on E.AddressID = A.AddressID
+inner join Towns as T on A.TownID = T.TownID
+order by FirstName, LastName
+//
+SELECT E.EmployeeID, E.Jobtitle, E.AddressID, A.AddressText
+FROM Employees as E, Addresses as A
+WHERE E.AddressID = A.AddressID
+
+SELECT E.EmployeeID, E.Jobtitle, E.AddressID, A.AddressText
+FROM Employees AS E INNER JOIN Addresses AS A ON E.AddressID = A.AddressID
+
+SELECT E.EmployeeID, E.Jobtitle, E.AddressID
+FROM Employees AS E
+WHERE E.AddressID IN (SELECT A.AddressID
+                      FROM Addresses AS A)
