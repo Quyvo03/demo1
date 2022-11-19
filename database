@@ -2,7 +2,7 @@ SELECT E.Firstname, E.LastName, T.Name, A.AddressText
 From Employees as E inner join Addresses as A on E.AddressID = A.AddressID
 inner join Towns as T on A.TownID = T.TownID
 order by FirstName, LastName
-//
+//2//
 SELECT E.EmployeeID, E.Jobtitle, E.AddressID, A.AddressText
 FROM Employees as E, Addresses as A
 WHERE E.AddressID = A.AddressID
@@ -14,3 +14,30 @@ SELECT E.EmployeeID, E.Jobtitle, E.AddressID
 FROM Employees AS E
 WHERE E.AddressID IN (SELECT A.AddressID
                       FROM Addresses AS A)
+                      /4/
+SELECT TOP 5 E.EmployeeID,E.FirstName, E.Salary, D.Name
+FROM Employees AS E INNER JOIN Departments AS D ON E.DepartmentID = D.DepartmentID
+WHERE E.Salary > 15000
+ORDER BY E.DepartmentID ASC
+/6/
+SELECT  E.EmployeeID, E.FirstName
+FROM Employees LEFT JOIN EmployeesProjects AS EP ON E.EmployeeID = EP.EmployeeID
+WHERE EP.ProjectID IS NULL
+
+SELECT EmployeesID, FirstName
+FROM Employees
+WHERE EmployeeID NOT IN (SELECT EmployeeID
+                         FROM EmployeesProjects)
+                         /7/
+                         
+SELECT E.FirstName, E.LastName, E.HireDate, D.Name
+FROM Employees as E JOIN Departments AS D ON E.DepartmentID = D.DepartmentID
+WHERE E.HireDate >'1999-01-01'
+AND (D.Name = 'SALES' OR D.Name ='FINACE')
+ORDER BY E.HireDate
+//8//
+SELECT E.EmployeeID, E.FirstName,P.Name
+FROM Employees as E join EmployeesProjects as EP on E.EmployeeID=E.EmployeeID
+join Projects as P on EP.ProjectID=P.ProjectID
+WHERE P.StartDate > '2002-08-13' and P.EndDate is null 
+ORDER BY EmployeeID
